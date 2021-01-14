@@ -5,9 +5,9 @@ import Door from './Components/Door.js';
 import Light from './Components/Light.js';
 import Temp from './Components/Temp.js';
 import WaterProof from './Components/WaterProof.js';
-import Test1 from './Components/Test1.js';
-import Test2 from './Components/Test2.js';
-
+import Vfan from './Components/Vfan.js';
+import Setting from './Components/Setting.js';
+import './App.css';
 
 
 class App extends Component {
@@ -18,20 +18,23 @@ class App extends Component {
     this.state = {
       mode : 'Door',
 
-      door : 'OPEN',
-      light : 'ON',
+      door : 'CLOSE',
+      light : 'OFF',
+      vfan : 'OFF',
       temp : 50,
-      waterproof : '침수X',
       fire : '화재X',
-      test1 : '0',
+      waterproof : 10,
       test2 : '0' 
 
     };
   }
 
+  //~~ util ~~
   //출입문 OPEN/CLOSE
-  handleChangeOpen = () => {
-    this.setState({ door : 'OPEN' })
+  handleChangeOpen = async () => {
+    this.setState({ door : 'OPEN' });
+    await alert('출입문이 개방되었습니다!!');
+    
   };
 
   handleChangeClose = () => {
@@ -39,11 +42,19 @@ class App extends Component {
   };
 
   //조명 ON/OFF
-  handleChangeOn = () => {
+  handleLightOn = () => {
     this.setState({ light : 'ON' })
   };
-  handleChangeOff = () => {
+  handleLightOff = () => {
     this.setState({ light : 'OFF' })
+  };
+
+  //환기팬 ON/OFF
+  handleVfanOn = () => {
+    this.setState({ vfan : 'ON' })
+  };
+  handleVfanOff = () => {
+    this.setState({ vfan : 'OFF' })
   };
 
   //온도 조절
@@ -56,15 +67,20 @@ class App extends Component {
     this.setState({ mode : mode });
   };
 
-  //온도 팝업
-  componentDidUpdate(){
-
-    if (this.state.temp >= 100) {
-      alert('접속함 내부 온도가 넘 높습니다!!');
-    }
+  //화재 핸들러
+  handleFireOn = (e) => { 
+    this.setState({ fire : '화재 발생!!' })
   }
-  
+  handleFireOff = (e) => { 
+    this.setState({ fire : '화재X' })
+  }
 
+  //침수 핸들러
+  handleChangeWater = (e) => {
+    this.setState({ waterproof : e.target.value })
+  };
+
+  //화면 전환
   handleChangeView() {
     if (this.state.mode === 'Home') {  
       return <Home 
@@ -87,8 +103,16 @@ class App extends Component {
     else if (this.state.mode === 'Light') {
       return <Light 
                   light = {this.state.light}
-                  lightOn = {this.handleChangeOn}
-                  lightOff = {this.handleChangeOff}
+                  lightOn = {this.handleLightOn}
+                  lightOff = {this.handleLightOff}
+            /> 
+    }
+    
+    else if (this.state.mode === 'Vfan') {
+      return <Vfan 
+                  vfan = {this.state.vfan}
+                  vfanOn = {this.handleVfanOn}
+                  vfanOff = {this.handleVfanOff}
             /> 
     }
 
@@ -99,28 +123,59 @@ class App extends Component {
             /> 
     }
 
-    else if (this.state.mode === 'Waterproof') { return <WaterProof waterproof = {this.state.waterproof} /> }
-    else if (this.state.mode === 'Fire') { return <Fire fire = {this.state.fire} /> }
-    else if (this.state.mode === 'Test1') { return <Test1 /> }
-    else if (this.state.mode === 'Test2') { return <Test2 /> }
+    else if (this.state.mode === 'Fire') {
+      return <Fire 
+                  fire = {this.state.fire}
+                  fireOff = {this.handleFireOff}
+            /> 
+    }
+
+    else if (this.state.mode === 'Waterproof') { 
+      return <WaterProof 
+                  waterproof = {this.state.waterproof}
+                  changeWater = {this.handleChangeWater} 
+            /> }
+
+    else if (this.state.mode === 'Setting') { return <Setting /> }
 
   };
+  //~~ util ~~
+  
+  componentDidUpdate(){
 
+    //온도 경보
+    if (this.state.temp >= 100) {
+      alert('접속함 내부 온도가 넘 높습니다!!');
+    }
+    //화재 발생 시 환기팬 동작
+    if (this.state.fire === '화재 발생!!' && this.state.vfan === 'OFF'){
+      this.setState({ vfan : 'ON'});
+    }
+    if (this.state.waterproof >= 20) {
+      alert('침수 발생!!');
+    } 
+
+  }
 
   render() {
 
     return (
 
       <Fragment>
-        
+
+        <label className="title">전력구 원격 감시 제어 시스템</label>
+        <br/><br/>
+
         <div className="View">
           <Home 
                   door = {this.state.door} 
                   light = {this.state.light}
+                  vfan = {this.state.vfan}
                   temp = {this.state.temp}
                   waterproof = {this.state.waterproof}
                   fire = {this.state.fire}
           /><br/>
+
           <div>제어기능 표시판</div>
           { this.handleChangeView() }<br/>
 
@@ -133,19 +188,19 @@ class App extends Component {
               <button onClick={() => this.handleChangeMode('Light')}>조명</button>
             </li>
             <li>
+              <button onClick={() => this.handleChangeMode('Vfan')}>환기팬</button>
+            </li>
+            <li>
               <button onClick={() => this.handleChangeMode('Temp')}>접속함 온도</button>
             </li>
             <li>
-              <button onClick={() => this.handleChangeMode('Fire')}>화재</button>
+              <button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생') }}>화재 상황</button>
             </li>
             <li>
-              <button onClick={() => this.handleChangeMode('Waterproof')}>침수</button>
+              <button onClick={() => this.handleChangeMode('Waterproof')}>침수 현황</button>
             </li>
             <li>
-              <button onClick={() => this.handleChangeMode('Test1')}>테스트1</button>
-            </li>
-            <li>
-              <button onClick={() => this.handleChangeMode('Test2')}>테스트2</button>
+              <button onClick={() => this.handleChangeMode('Setting')}>운영자 설정</button>
             </li>
             
           </ul>

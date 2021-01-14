@@ -1,0 +1,10 @@
+.title{
+    position: fixed;
+    width : 100%;
+    height : 4%;
+    background-color: black;
+    color: white;
+    font-size: 3vh;
+    font-family: 'BenchNine', Arial, sans-serif;
+    opacity: 0.9;
+  }
