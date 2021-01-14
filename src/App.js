@@ -45,11 +45,25 @@ class App extends Component {
   handleChangeOff = () => {
     this.setState({ light : 'OFF' })
   };
+
+  //온도 조절
+  handleChangeTemp = (e) => {
+    this.setState({ temp : e.target.value })
+  };
   
   //화면의 전환을 위한 핸들러
   handleChangeMode = (mode) => {
     this.setState({ mode : mode });
   };
+
+  //온도 팝업
+  componentDidUpdate(){
+
+    if (this.state.temp >= 100) {
+      alert('접속함 내부 온도가 넘 높습니다!!');
+    }
+  }
+  
 
   handleChangeView() {
     if (this.state.mode === 'Home') {  
@@ -80,7 +94,9 @@ class App extends Component {
 
     else if (this.state.mode === 'Temp') { 
       return <Temp 
-                  temp = {this.state.temp} /> 
+                  temp = {this.state.temp}
+                  changeTemp = {this.handleChangeTemp}
+            /> 
     }
 
     else if (this.state.mode === 'Waterproof') { return <WaterProof waterproof = {this.state.waterproof} /> }
