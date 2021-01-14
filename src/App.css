@@ -8,3 +8,12 @@
     font-family: 'BenchNine', Arial, sans-serif;
     opacity: 0.9;
   }
+
+  ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+
+  li {
+      margin : 5px;
+  }
