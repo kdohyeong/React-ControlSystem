@@ -1,0 +1,17 @@
+label {
+    display: block;
+    text-align: center;
+}
+
+
+.ICON {
+    margin-left : 18%;
+}
+
+
+.Icon {
+    width : 200px;
+    height : 150px;
+    float: left;
+    margin : 5%;
+}

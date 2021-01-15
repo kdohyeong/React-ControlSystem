@@ -10,7 +10,6 @@ import Setting from './Components/Setting.js';
 import Button from '@material-ui/core/Button';
 import './App.css';
 
-
 class App extends Component {
   constructor (props){
     super(props);

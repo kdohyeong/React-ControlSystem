@@ -1,13 +1,17 @@
 import React, { Fragment } from 'react';
-import OPEN from './Img/문 열림.png';
-import CLOSE from './Img/문 닫힘.png';
+import OPEN from './Img/문열림.png';
+import CLOSE from './Img/문닫힘.png';
 import LIGHTON from './Img/조명온.png';
 import LIGHTOFF from './Img/조명오프.png';
 import VFANON from './Img/환기팬온.png';
 import VFANOFF from './Img/환기팬오프.png';
-import MWATER from './Img/중침수.png';
-import HWATER from './Img/대침수.png';
-
+import MWATER from './Img/침수.png';
+import HWATER from './Img/침수상태.png';
+import FIREOFF from './Img/화재X.png';
+import FIRE from './Img/화재.png';
+import MTEMP from './Img/온도.png';
+import HTEMP from './Img/온도2.png';
+import './Home.css';
 
 
 class Home extends React.Component {
@@ -18,95 +22,142 @@ class Home extends React.Component {
 
     render () {
         return (
-
-            <div>
+        <Fragment>
+            <label>
                 상황판<br/>
-                출입문 현재 상태 : {this.doorImg()} <br/>
-                현재 조명 : {this.lightImg()} <br/>
-                환기팬 동작 : {this.vfanImg()}<br/>
-                접속함 내부 온도 : {this.props.temp}<br/>
-                집수정 수위 감시 : {this.props.waterproof} %{this.waterProofImg()}<br/>
-                화재 감시 : {this.props.fire} <br/>
-            </div>
-        
+            </label>
+            <ul className="ICON">
+                <li className="Icon">    
+                    현재 개폐기 상황 <br/> {this.doorImg()}
+                </li>
+                <li className="Icon">
+                    현재 조명 상황 <br/> {this.lightImg()}
+                </li>
+                <li className="Icon">
+                    현재 환기팬 상황 <br/> {this.vfanImg()}
+                </li>
+                <li className="Icon">
+                    접속함 내부 온도감지 <br/> {this.TempImg()} {this.props.temp}<br/>
+                </li>
+                <li className="Icon">
+                    집수정 수위 감지 <br/> {this.waterProofImg()} {this.props.waterproof} %
+                </li>
+                <li className="Icon">
+                    화재 감지 <br/> {this.FireImg()}
+                </li>
+            </ul>
+        </Fragment>
         );
     }
 
     //~~util~~
+    //개폐문 이미지 변화
     doorImg () {
         if (this.props.door === 'OPEN') {
             return (
                 <Fragment>
-                <img src={OPEN} width='100px' height='100px' alt='열림'></img><br/>
+                <img src={OPEN} width='100px' height='120px' alt='개폐문 열림'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.door === 'CLOSE') {
             return (
                 <Fragment>
-                <img src={CLOSE} width='100px' height='100px' alt='닫힘'></img><br/>
+                <img src={CLOSE} width='100px' height='120px' alt='개폐문 닫힘'></img><br/>
                 </Fragment>
             );
         }
     }
-
+    //조명 이미지 변화
     lightImg () {
         if (this.props.light === 'ON') {
-            // console.log('들어가나?');
             return (
                 <Fragment>
-                <img src={LIGHTON} width='100px' height='100px' alt='조명켜짐'></img><br/>
+                <img src={LIGHTON} width='100px' height='120px' alt='조명 켜짐'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.light === 'OFF') {
             return (
                 <Fragment>
-                <img src={LIGHTOFF} width='150px' height='100px' alt='조명꺼짐'></img><br/>
+                <img src={LIGHTOFF} width='100px' height='120px' alt='조명 꺼짐'></img><br/>
                 </Fragment>
             );
         }
     }
-
+    //환기팬 이미지 변화
     vfanImg () {
         if (this.props.vfan === 'ON') {
-            // console.log('들어가나?');
             return (
                 <Fragment>
-                <img src={VFANON} width='100px' height='100px' alt='조명켜짐'></img><br/>
+                <img src={VFANON} width='100px' height='120px' alt='환기팬 켜짐'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.vfan === 'OFF') {
             return (
                 <Fragment>
-                <img src={VFANOFF} width='150px' height='100px' alt='조명꺼짐'></img><br/>
+                <img src={VFANOFF} width='100px' height='120px' alt='환기팬 꺼짐'></img><br/>
                 </Fragment>
             );
         }
     }
-
-    waterProofImg () {
-        if (this.props.waterproof < 50) {
+    //온도 이미지 변화
+    TempImg () {
+        if (this.props.temp < 100) {
             return (
                 <Fragment>
-                    {/* <img src={MWATER} width='100px' height='100px' alt=''></img><br/> */}
-                    <br/>
-                    <div>이미지 없음</div>
+                    <img src={MTEMP} width='100px' height='120px' alt='중간'></img><br/>
                 </Fragment>
             );
         }
-        else if (this.props.waterproof < 80) {
+        else if (this.props.temp >= 50 && this.props.waterproof < 80) {
             return (
                 <Fragment>
-                    <img src={MWATER} width='100px' height='100px' alt='중간'></img><br/>
+                    <img src={HTEMP} width='100px' height='120px' alt='100도 이상'></img><br/>
+                </Fragment>
+            );
+        }
+    }
+    //수위 이미지 변화
+    waterProofImg () {
+       
+        if (this.props.waterproof < 50) {
+            return (
+                <Fragment>
+                    <img src={MWATER} width='100px' height='120px' alt='50%미만'></img><br/>
+                </Fragment>
+            );
+        }
+        else if (this.props.waterproof >= 50 && this.props.waterproof < 80) {
+            return (
+                <Fragment>
+                    <img src={HWATER} width='100px' height='120px' alt='50%이상 80%미만'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.waterproof >= 80) {
             return (
                 <Fragment>
-                    <img src={HWATER} width='150px' height='100px' alt='80%이상'></img><br/>
+                    <img src={HWATER} width='100px' height='120px' alt='80%이상'></img>
+                    <img src={HWATER} width='100px' height='120px' alt='80%이상'></img><br/>
+                </Fragment>
+            );
+        }
+    }
+    //화재 이미지 변화
+    FireImg () {
+        if (this.props.fire === '화재X') {
+            return (
+                <Fragment>
+                <img src={FIREOFF} width='100px' height='120px' alt='화재 발생!!'></img><br/>
+                </Fragment>
+            );
+        }
+        else if (this.props.fire === '화재 발생!!') {
+            return (
+                <Fragment>
+                <img src={FIRE} width='100px' height='120px' alt='화재 발생!!'></img><br/>
                 </Fragment>
             );
         }
