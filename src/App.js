@@ -18,28 +18,48 @@ class App extends Component {
     this.state = {
       mode : 'Door',
 
-      door : 'CLOSE',
-      light : 'OFF',
-      vfan : 'OFF',
-      temp : 50,
-      fire : '화재X',
-      waterproof : 0,
-      test2 : '0' 
+      door : 'CLOSE',  // OPEN / CLOSE / OPEN 경보
+      light : 'OFF',   // ON / OFF
+      vfan : 'OFF',    // ON / OFF
+      temp : 50,       // 50 ~ 150 ('C) / 100UP 경보
+      fire : '화재X',  // 화재X / 화재 발생!! + 경보   
+      waterproof : 0,  // 0 ~ 100 (%) / 50UP 경경보 / 80UP 중경보
+
     };
   }
-  
-  componentDidUpdate(){
-    //온도 경보
-    if (this.state.temp >= 100) {
-      alert('접속함 내부 온도가 넘 높습니다!!');
-    }
-    //집수정 침수 경보!!
-    if (this.state.waterproof === '50') {
-      alert('집수정 수위가 50%를 넘었습니다!!');
-    }
-    if (this.state.waterproof === '80') {
-      alert('집수정 수위가 80%를 넘었습니다!!');
-    }  
+
+  componentDidMount() {
+
+    //화재 경보
+    setInterval(() => {
+      if (this.state.fire === '화재 발생!!') {
+        alert('화재가 발생했습니다!!');
+      }
+    }, 5000);
+    //접속함 내부 온도
+    setInterval(() => {
+      if (this.state.temp >= 100) {
+        alert('접속함 내부 온도가 너무 높습니다!!');
+      }
+    }, 5000);
+    //집수정 수위 50% 경보
+    setInterval(() => {
+      if (this.state.waterproof >= 50 && this.state.waterproof <= 80) {
+        alert('집수정 수위가 50%를 넘었습니다!!');
+      }
+    }, 5000);
+    //집수정 수위 80% 이상 경보
+    setInterval(() => {
+      if (this.state.waterproof >= 80) {
+        alert('집수정 수위가 80%를 넘었습니다!!');
+      } 
+    }, 3000); 
+
+  }
+
+  componentWillUnmount() {
+    // 경보 해제
+    clearInterval(this);
   }
 
   render() {
@@ -48,7 +68,7 @@ class App extends Component {
         <div className="Container">
           <label className="title">전력구 원격 감시 제어 시스템</label>
           <br/><br/>
-
+          {/* 홈 화면 */}
           <div className="View">
             <Home 
                     door = {this.state.door} 
@@ -59,11 +79,11 @@ class App extends Component {
                     fire = {this.state.fire}
             /><br/>
           </div>
-
+          {/* 제어판 */}
           <div className="Control">제어기능 표시판<br/>
           { this.handleChangeView() }<br/>
           </div>
-
+          {/* 메뉴 */}
           <div className="Menu">
             <ul className="ButtonList">
 
@@ -83,7 +103,7 @@ class App extends Component {
                 <Button onClick={() => this.handleChangeMode('Waterproof')} variant="contained" color="primary">집수정<br/>수위 조절</Button>
               </li>
               <li>
-                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생'); this.handleVfanOn(); }} variant="contained" color="primary">화재 상황<br/>발생</Button>
+                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생'); this.handleVfanOn(); alert('화재가 발생했습니다!!');}} variant="contained" color="primary">화재 상황<br/>발생</Button>
               </li>
               <li>
                 <Button onClick={() => {this.state.mode !== 'Setting' ? this.handleChangeMode('Setting') : this.handleChangeMode('Home')}} variant="contained" color="primary">운영자 설정</Button>

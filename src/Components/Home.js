@@ -56,14 +56,14 @@ class Home extends React.Component {
         if (this.props.door === 'OPEN') {
             return (
                 <Fragment>
-                <img src={OPEN} width='100px' height='120px' alt='개폐문 열림'></img><br/>
+                <img src={OPEN} width='150px' height='150px' alt='개폐문 열림'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.door === 'CLOSE') {
             return (
                 <Fragment>
-                <img src={CLOSE} width='100px' height='120px' alt='개폐문 닫힘'></img><br/>
+                <img src={CLOSE} width='150px' height='150px' alt='개폐문 닫힘'></img><br/>
                 </Fragment>
             );
         }
@@ -73,14 +73,14 @@ class Home extends React.Component {
         if (this.props.light === 'ON') {
             return (
                 <Fragment>
-                <img src={LIGHTON} width='100px' height='120px' alt='조명 켜짐'></img><br/>
+                <img src={LIGHTON} width='150px' height='150px' alt='조명 켜짐'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.light === 'OFF') {
             return (
                 <Fragment>
-                <img src={LIGHTOFF} width='100px' height='120px' alt='조명 꺼짐'></img><br/>
+                <img src={LIGHTOFF} width='150px' height='150px' alt='조명 꺼짐'></img><br/>
                 </Fragment>
             );
         }
@@ -90,14 +90,14 @@ class Home extends React.Component {
         if (this.props.vfan === 'ON') {
             return (
                 <Fragment>
-                <img src={VFANON} width='100px' height='120px' alt='환기팬 켜짐'></img><br/>
+                <img src={VFANON} width='150px' height='150px' alt='환기팬 켜짐'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.vfan === 'OFF') {
             return (
                 <Fragment>
-                <img src={VFANOFF} width='100px' height='120px' alt='환기팬 꺼짐'></img><br/>
+                <img src={VFANOFF} width='150px' height='150px' alt='환기팬 꺼짐'></img><br/>
                 </Fragment>
             );
         }
@@ -107,14 +107,14 @@ class Home extends React.Component {
         if (this.props.temp < 100) {
             return (
                 <Fragment>
-                    <img src={MTEMP} width='100px' height='120px' alt='중간'></img><br/>
+                    <img src={MTEMP} width='150px' height='150px' alt='중간'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.temp >= 50 && this.props.waterproof < 80) {
             return (
                 <Fragment>
-                    <img src={HTEMP} width='100px' height='120px' alt='100도 이상'></img><br/>
+                    <img src={HTEMP} width='150px' height='150px' alt='100도 이상'></img><br/>
                 </Fragment>
             );
         }
@@ -125,22 +125,22 @@ class Home extends React.Component {
         if (this.props.waterproof < 50) {
             return (
                 <Fragment>
-                    <img src={MWATER} width='100px' height='120px' alt='50%미만'></img><br/>
+                    <img src={MWATER} width='150px' height='150px' alt='50%미만'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.waterproof >= 50 && this.props.waterproof < 80) {
             return (
                 <Fragment>
-                    <img src={HWATER} width='100px' height='120px' alt='50%이상 80%미만'></img><br/>
+                    <img src={HWATER} width='150px' height='150px' alt='50%이상 80%미만'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.waterproof >= 80) {
             return (
                 <Fragment>
-                    <img src={HWATER} width='100px' height='120px' alt='80%이상'></img>
-                    <img src={HWATER} width='100px' height='120px' alt='80%이상'></img><br/>
+                    <img src={HWATER} width='100px' height='150px' alt='80%이상'></img>
+                    <img src={HWATER} width='100px' height='150px' alt='80%이상'></img><br/>
                 </Fragment>
             );
         }
@@ -150,14 +150,14 @@ class Home extends React.Component {
         if (this.props.fire === '화재X') {
             return (
                 <Fragment>
-                <img src={FIREOFF} width='100px' height='120px' alt='화재 발생!!'></img><br/>
+                <img src={FIREOFF} width='150px' height='150px' alt='화재 발생!!'></img><br/>
                 </Fragment>
             );
         }
         else if (this.props.fire === '화재 발생!!') {
             return (
                 <Fragment>
-                <img src={FIRE} width='100px' height='120px' alt='화재 발생!!'></img><br/>
+                <img src={FIRE} width='150px' height='150px' alt='화재 발생!!'></img><br/>
                 </Fragment>
             );
         }

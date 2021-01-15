@@ -34,6 +34,7 @@ class Setting extends React.Component {
                     <div>운영자 설정 페이지</div>
                     <button className="setButton" onClick={(e) =>{ e.preventDefault(); }}>테스트</button>
                     <button className="setButton" onClick={(e) =>{ e.preventDefault(); }}>테스트2</button>
+                    
                 </div>       
             </Fragment>
         );
