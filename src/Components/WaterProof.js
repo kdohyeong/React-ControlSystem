@@ -7,12 +7,12 @@ class WaterProof extends React.Component {
         
         <div>
 
-          <div>수위 현황</div>
+          <div>수위 제어</div>
           <form>
           <input className="range"  id="tempChange" type="range" 
                  value={this.props.water}
                  onChange={this.props.changeWater}
-                 step="0.5" min="0" max="100" defaultValue="0" 
+                 step="2" min="0" max="100" defaultValue="0" 
          /><br/> 
          </form>
         

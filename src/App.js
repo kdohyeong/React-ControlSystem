@@ -34,13 +34,13 @@ class App extends Component {
     if (this.state.temp >= 100) {
       alert('접속함 내부 온도가 넘 높습니다!!');
     }
-    //화재 발생 시 환기팬 동작
-    if (this.state.fire === '화재 발생!!' && this.state.vfan === 'OFF'){
-      this.setState({ vfan : 'ON'});
+    //집수정 침수 경보!!
+    if (this.state.waterproof === '50') {
+      alert('집수정 수위가 50%를 넘었습니다!!');
     }
-    if (this.state.waterproof >= 20) {
-      alert('침수 발생!!');
-    } 
+    if (this.state.waterproof === '80') {
+      alert('집수정 수위가 80%를 넘었습니다!!');
+    }  
   }
 
   render() {
@@ -81,13 +81,13 @@ class App extends Component {
                 <Button onClick={() => this.handleChangeMode('Temp')} variant="contained" color="primary">접속함<br/>온도조절</Button>
               </li>
               <li>
-                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생') }} variant="contained" color="primary">화재 상황</Button>
-              </li>
-              <li>
                 <Button onClick={() => this.handleChangeMode('Waterproof')} variant="contained" color="primary">집수정<br/>수위 조절</Button>
               </li>
               <li>
-                <Button onClick={() => this.handleChangeMode('Setting')} variant="contained" color="primary">운영자 설정</Button>
+                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생'); this.handleVfanOn(); }} variant="contained" color="primary">화재 상황<br/>발생</Button>
+              </li>
+              <li>
+                <Button onClick={() => {this.state.mode !== 'Setting' ? this.handleChangeMode('Setting') : this.handleChangeMode('Home')}} variant="contained" color="primary">운영자 설정</Button>
               </li>
               
             </ul>
@@ -102,16 +102,8 @@ class App extends Component {
   //~~ util ~~
   //화면 전환
   handleChangeView() {
-    if (this.state.mode === 'Home') {  
-      return <Home 
-                  door = {this.state.door} 
-                  light = {this.state.light}
-                  temp = {this.state.temp}
-                  waterproof = {this.state.waterproof}
-                  fire = {this.state.fire}
-            />
-    }
-    else if (this.state.mode === 'Door') { 
+  
+    if (this.state.mode === 'Door') { 
       return <Door 
                   door = {this.state.door}
                   doorClose = {this.handleChangeClose}
@@ -142,6 +134,7 @@ class App extends Component {
       return <Fire 
                   fire = {this.state.fire}
                   fireOff = {this.handleFireOff}
+                  vfanOff = {this.handleVfanOff}
             /> 
     }
     else if (this.state.mode === 'Waterproof') { 
@@ -149,7 +142,7 @@ class App extends Component {
                   waterproof = {this.state.waterproof}
                   changeWater = {this.handleChangeWater} 
             /> }
-    else if (this.state.mode === 'Setting') { return <Setting /> }
+    else if (this.state.mode === 'Setting') { return <Setting Off= {this.state.mode} /> }
   };
 
   //출입문 OPEN/CLOSE
@@ -199,6 +192,7 @@ class App extends Component {
   handleChangeWater = (e) => {
     this.setState({ waterproof : e.target.value })
   };
+
   //~~ util ~~
 }
 export default App;

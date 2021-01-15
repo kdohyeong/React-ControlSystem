@@ -5,7 +5,7 @@ class Fire extends React.Component {
     render () {
         return (
 
-          <button onClick = {this.props.fireOff}>화재 진화</button> 
+          <button onClick = {(e) => {this.props.fireOff(); this.props.vfanOff();}}>화재 진화</button> 
         
         );
     }
