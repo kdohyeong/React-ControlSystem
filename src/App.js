@@ -46,47 +46,53 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <label className="title">전력구 원격 감시 제어 시스템</label>
-        <br/><br/>
+        <div className="Container">
+          <label className="title">전력구 원격 감시 제어 시스템</label>
+          <br/><br/>
 
-        <div className="View">
-          <Home 
-                  door = {this.state.door} 
-                  light = {this.state.light}
-                  vfan = {this.state.vfan}
-                  temp = {this.state.temp}
-                  waterproof = {this.state.waterproof}
-                  fire = {this.state.fire}
-          /><br/>
+          <div className="View">
+            <Home 
+                    door = {this.state.door} 
+                    light = {this.state.light}
+                    vfan = {this.state.vfan}
+                    temp = {this.state.temp}
+                    waterproof = {this.state.waterproof}
+                    fire = {this.state.fire}
+            /><br/>
+          </div>
 
-          <div>제어기능 표시판</div>
+          <div className="Control">제어기능 표시판<br/>
           { this.handleChangeView() }<br/>
+          </div>
 
-          <ul className="ButtonList">
+          <div className="Menu">
+            <ul className="ButtonList">
 
-            <li>
-              <Button onClick={() => this.handleChangeMode('Door') } variant="contained" color="primary">출입문</Button>
-            </li>
-            <li>
-              <Button onClick={() => this.handleChangeMode('Light')} variant="contained" color="primary">조명</Button>
-            </li>
-            <li>
-              <Button onClick={() => this.handleChangeMode('Vfan')} variant="contained" color="primary">환기팬</Button>
-            </li>
-            <li>
-              <Button onClick={() => this.handleChangeMode('Temp')} variant="contained" color="primary">접속함 온도</Button>
-            </li>
-            <li>
-              <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생') }} variant="contained" color="primary">화재 상황</Button>
-            </li>
-            <li>
-              <Button onClick={() => this.handleChangeMode('Waterproof')} variant="contained" color="primary">침수 현황</Button>
-            </li>
-            <li>
-              <Button onClick={() => this.handleChangeMode('Setting')} variant="contained" color="primary">운영자 설정</Button>
-            </li>
-            
-          </ul>
+              <li>
+                <Button onClick={() => this.handleChangeMode('Door') } variant="contained" color="primary">출입문 제어</Button>
+              </li>
+              <li>
+                <Button onClick={() => this.handleChangeMode('Light')} variant="contained" color="primary">조명 제어</Button>
+              </li>
+              <li>
+                <Button onClick={() => this.handleChangeMode('Vfan')} variant="contained" color="primary">환기팬 제어</Button>
+              </li>
+              <li>
+                <Button onClick={() => this.handleChangeMode('Temp')} variant="contained" color="primary">접속함<br/>온도조절</Button>
+              </li>
+              <li>
+                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생') }} variant="contained" color="primary">화재 상황</Button>
+              </li>
+              <li>
+                <Button onClick={() => this.handleChangeMode('Waterproof')} variant="contained" color="primary">집수정<br/>수위 조절</Button>
+              </li>
+              <li>
+                <Button onClick={() => this.handleChangeMode('Setting')} variant="contained" color="primary">운영자 설정</Button>
+              </li>
+              
+            </ul>
+          </div>
+
         </div>
       </Fragment>
     );
