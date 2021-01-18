@@ -37,16 +37,27 @@ class Setting extends React.Component {
                         설비 관리<br/>
                         점검 관리<br/>
                         이력 조회<br/>
-                        경보 임계치 설정<br/>
                         운영자 작업 범위 설정<br/>
-                        경보 기능<br/>
-                        원격소 장치 추가/삭제
 
 
                     </div>
-                    <button className="ControlButton" onClick={(e) =>{ e.preventDefault(); }}>추가</button>
-                    <button className="ControlButton" onClick={(e) =>{ e.preventDefault(); }}>삭제</button>
+                    <div>경보 잠금 해제</div>
+                    <button className="ControlButton" onClick = {this.props.alertOff}>경보 잠금</button>
+                    <button className="ControlButton" onClick = {this.props.alertOn}>경보 잠금 해제</button><br/>
                     
+                    <div>원격소 장치 추가/삭제</div> 
+                    <button className="ControlButton" onClick={(e) =>{ e.preventDefault(); }}>추가</button>
+                    <button className="ControlButton" onClick={(e) =>{ e.preventDefault(); }}>삭제</button><br/>
+                    
+                    <div>온도 경보 임계치 설정</div>
+                    {this.props.tempRange}
+                    <form>
+                    <input className="number" type="number" 
+                        value={this.props.tempRange}
+                        onChange={this.props.changeTempRange}
+                        step="0.5" min="0" max="150" defaultValue="50" 
+                    /><br/> 
+                    </form>
                 </div>       
             </Fragment>
         );

@@ -17,7 +17,6 @@ import './Home.css';
 class Home extends React.Component {
     constructor (props){
         super(props);
-
     }
 
     render () {
@@ -111,7 +110,7 @@ class Home extends React.Component {
                 </Fragment>
             );
         }
-        else if (this.props.temp >= 50 && this.props.waterproof < 80) {
+        else if (this.props.temp >= 100) {
             return (
                 <Fragment>
                     <img src={HTEMP} width='150px' height='150px' alt='100도 이상'></img><br/>

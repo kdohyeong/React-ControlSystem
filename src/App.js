@@ -18,39 +18,43 @@ class App extends Component {
     this.state = {
       mode : 'Door',
 
-      door : 'CLOSE',  // OPEN / CLOSE / OPEN 경보
-      light : 'OFF',   // ON / OFF
-      vfan : 'OFF',    // ON / OFF
-      temp : 50,       // 50 ~ 150 ('C) / 100UP 경보
-      fire : '화재X',  // 화재X / 화재 발생!! + 경보   
-      waterproof : 0,  // 0 ~ 100 (%) / 50UP 경경보 / 80UP 중경보
+      door : 'CLOSE',   // OPEN / CLOSE / OPEN 경보
+      light : 'OFF',    // ON / OFF
+      vfan : 'OFF',     // ON / OFF
+      temp : 50,        // 50 ~ 150 ('C) / 100UP 경보
+      fire : '화재X',   // 화재X / 화재 발생!! + 경보   
+      waterproof : 0,   // 0 ~ 100 (%) / 50UP 경경보 / 80UP 중경보
+      alertting : 'ON', // 경보 ON / OFF
+      tempRange : 100   // 기본 100
 
     };
   }
 
   componentDidMount() {
-
+    
     //화재 경보
     setInterval(() => {
-      if (this.state.fire === '화재 발생!!') {
+      if (this.state.fire === '화재 발생!!' && this.state.alertting === 'ON') {
         alert('화재가 발생했습니다!!');
       }
     }, 5000);
     //접속함 내부 온도
     setInterval(() => {
-      if (this.state.temp >= 100) {
+      console.log(this.state.tempRange);
+      console.log(this.state.temp);
+      if (this.state.temp >= this.state.tempRange && this.state.alertting === 'ON') {
         alert('접속함 내부 온도가 너무 높습니다!!');
       }
     }, 5000);
     //집수정 수위 50% 경보
     setInterval(() => {
-      if (this.state.waterproof >= 50 && this.state.waterproof <= 80) {
+      if (this.state.waterproof >= 50 && this.state.waterproof <= 80 && this.state.alertting === 'ON') {
         alert('집수정 수위가 50%를 넘었습니다!!');
       }
     }, 5000);
     //집수정 수위 80% 이상 경보
     setInterval(() => {
-      if (this.state.waterproof >= 80) {
+      if (this.state.waterproof >= 80 && this.state.alertting === 'ON') {
         alert('집수정 수위가 80%를 넘었습니다!!');
       } 
     }, 3000); 
@@ -103,10 +107,13 @@ class App extends Component {
                 <Button onClick={() => this.handleChangeMode('Waterproof')} variant="contained" color="primary">집수정<br/>수위 조절</Button>
               </li>
               <li>
-                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생'); this.handleVfanOn(); alert('화재가 발생했습니다!!');}} variant="contained" color="primary">화재 상황<br/>발생</Button>
+                <Button onClick={() => { this.handleChangeMode('Fire'); this.handleFireOn('화재 발생'); this.handleVfanOn(); if (this.state.alertting === 'ON'){ alert('화재가 발생했습니다!!'); }}} variant="contained" color="primary">화재 상황<br/>발생</Button>
               </li>
               <li>
-                <Button onClick={() => {this.state.mode !== 'Setting' ? this.handleChangeMode('Setting') : this.handleChangeMode('Home')}} variant="contained" color="primary">운영자 설정</Button>
+                <Button onClick={() => {this.state.mode !== 'Setting' ? this.handleChangeMode('Setting') : this.handleChangeMode('Home')}} 
+                        variant="contained" 
+                        color="primary">운영자 설정
+                </Button>
               </li>
               
             </ul>
@@ -161,7 +168,15 @@ class App extends Component {
                   waterproof = {this.state.waterproof}
                   changeWater = {this.handleChangeWater} 
             /> }
-    else if (this.state.mode === 'Setting') { return <Setting Off= {this.state.mode} /> }
+    else if (this.state.mode === 'Setting') { 
+      return <Setting Off = {this.state.mode}
+                      alert = {this.state.alertting} 
+                      alertOn = {this.handleAlertOn}
+                      alertOff = {this.handleAlertOff}
+                      tempRange= {this.state.tempRange}
+                      changeTempRange = {this.handleChangeTempRange}
+
+            /> }
   };
 
   //출입문 OPEN/CLOSE
@@ -211,7 +226,19 @@ class App extends Component {
   handleChangeWater = (e) => {
     this.setState({ waterproof : e.target.value })
   };
+  
+  // 경보 잠금 해제
+  handleAlertOn = () => {
+    this.setState({ alertting : 'ON' })
+  };
+  handleAlertOff = () => {
+    this.setState({ alertting : 'OFF' })
+  };
 
+  // 온도 경보 범위 설정 
+  handleChangeTempRange = (e) => {
+    this.setState({ tempRange : e.target.value })
+  };
   //~~ util ~~
 }
 export default App;
