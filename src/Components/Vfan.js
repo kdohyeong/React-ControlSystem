@@ -1,4 +1,5 @@
 import React from 'react';
+import './ControlButton.css';
 
 class Vfan extends React.Component {
   
@@ -7,8 +8,8 @@ class Vfan extends React.Component {
 
             <div>
 
-            <button onClick = {this.props.vfanOn}>환기팬 작동</button>
-            <button onClick = {this.props.vfanOff}>환기팬 정지</button>
+            <button className="ControlButton" onClick = {this.props.vfanOn}>환기팬 작동</button>
+            <button className="ControlButton" onClick = {this.props.vfanOff}>환기팬 정지</button>
         
             </div>
         );

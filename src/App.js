@@ -80,7 +80,7 @@ class App extends Component {
             /><br/>
           </div>
           {/* 제어판 */}
-          <div className="Control">제어기능 표시판<br/>
+          <div className="Control">제어 기능판<br/>
           { this.handleChangeView() }<br/>
           </div>
           {/* 메뉴 */}

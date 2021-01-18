@@ -7,7 +7,11 @@ class WaterProof extends React.Component {
         
         <div>
 
-          <div>수위 제어</div>
+          <div style = {{ 
+                fontSize : '85%' 
+          }}>
+          수위 제어
+          </div>
           <form>
           <input className="range"  id="tempChange" type="range" 
                  value={this.props.water}

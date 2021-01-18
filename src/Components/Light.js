@@ -1,4 +1,5 @@
 import React from 'react';
+import './ControlButton.css';
 
 class Light extends React.Component {
   
@@ -7,8 +8,8 @@ class Light extends React.Component {
 
         <div>
 
-            <button onClick = {this.props.lightOn}>조명 켜기</button>
-            <button onClick = {this.props.lightOff}>조명 끄기</button>
+            <button className="ControlButton" onClick = {this.props.lightOn}>조명 켜기</button>
+            <button className="ControlButton" onClick = {this.props.lightOff}>조명 끄기</button>
         
         </div>
         

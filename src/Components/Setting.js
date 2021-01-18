@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import './ControlButton.css';
 
 class Setting extends React.Component {
   
@@ -28,12 +29,23 @@ class Setting extends React.Component {
                         backgroundColor: "white",
                         opacity : "1 !important", 
                         zIndex : "15"
-                        }}
+                    }}
                 >
 
-                    <div>운영자 설정 페이지</div>
-                    <button className="setButton" onClick={(e) =>{ e.preventDefault(); }}>테스트</button>
-                    <button className="setButton" onClick={(e) =>{ e.preventDefault(); }}>테스트2</button>
+                    <div>운영자 설정 페이지
+                        운영자 관리<br/>
+                        설비 관리<br/>
+                        점검 관리<br/>
+                        이력 조회<br/>
+                        경보 임계치 설정<br/>
+                        운영자 작업 범위 설정<br/>
+                        경보 기능<br/>
+                        원격소 장치 추가/삭제
+
+
+                    </div>
+                    <button className="ControlButton" onClick={(e) =>{ e.preventDefault(); }}>추가</button>
+                    <button className="ControlButton" onClick={(e) =>{ e.preventDefault(); }}>삭제</button>
                     
                 </div>       
             </Fragment>

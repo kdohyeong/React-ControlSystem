@@ -81,3 +81,9 @@ li {
   text-align: center;
   font-family: 'BenchNine', Arial, sans-serif;
 }
+
+.Control {
+  text-align: center;
+  font-weight:500;
+  font-size:150%;
+}

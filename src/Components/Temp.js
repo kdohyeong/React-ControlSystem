@@ -10,7 +10,9 @@ class Temp extends React.Component {
         return (
             
           <div>
-              <div>
+              <div style = {{
+                    fontSize : '85%'
+              }}>
               접속함 온도 조절
               </div>
               <form>
