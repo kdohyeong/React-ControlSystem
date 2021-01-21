@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# 간단히 만들어본 전력구 제어 시스템 프로젝
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
